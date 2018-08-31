@@ -58,6 +58,10 @@ app.post("/images", (req, res) => {
     // console.log(object);
 })
 
+app.get("/reroute", (req, res) => {
+    routeImageFiles();
+})
+
 app.listen(3000, () => {
     console.log("Server started.. 3000");
 })
@@ -205,5 +209,17 @@ function rename(oldFileName, newFileClass, path) {
         console.log("******************************")
         console.log("File " + oldFileName + " changed to " + newFilePath)
         console.log("******************************")
+    })
+}
+
+
+function routeImageFiles() {
+    const originPath = "./images/";
+    const forkPath = "./train_images/fork/"
+    const knifePath = "./train_images/knife/"
+    const spoonPath = "./train_images/spoon/"
+
+    fs.readdir(originPath).forEach(file => {
+        console.log(file);
     })
 }
