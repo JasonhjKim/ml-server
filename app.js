@@ -65,11 +65,29 @@ function predict(fileName) {
         pythonProcess.stdout.on('data', (data) => {
             parseArray(data.toString())
                 .then((result) => {
+                    const classification = highestItem(result);
+                    rename(fileName, classification, "./images/");
                     resolve(result);
                 })
         });
     })
     // console.log("Got here");
+}
+
+function train() {
+    return new Promise((resolve, reject) => {
+        const arg1 = "-m scripts.retrain,",
+              arg2 = "--bottleneck_dir=tf_files_2/bottlenecks",
+              arg3 = "--how_many_training_steps=1000",
+              arg4 = "--model_dir=tf_files_2/models/"
+              arg5 = "--summaries_dir=tf_files_2/training_summaries/'mobilenet_0.50_224'",
+              arg6 = "--output_graph=tf_files_2/retrained_graph.pb",
+              arg7 = "--output_labels=tf_files_2/retrained_labels.txt",
+              arg8 = "--architecture='mobilenet_0.50_224'"
+              arg9 = "--image_dir=tf_files_2/images/"
+        const pythonProcess = childProcess.spawn('pythong', [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]);
+        python 
+    })
 }
 
 function createFile(image) {
@@ -126,6 +144,48 @@ function parseArray(dirtyData) {
                 returnObject[indexString] = percentageString.substring(equalIndex + 1, endBracketIndex).toString();
             }
         }
+        console.log(fileReName)
         resolve(returnObject);
     })
+}
+
+function highestItem(array) {
+    if(array.length != 0) {
+        const max = Math.max(array["spoon"], array["fork"], array["knife"]);
+        console.log(array["spoon"] + " " + array["fork"])
+        console.log(array["spoon"] < array["fork"])
+        if (array["spoon"] > array["fork"]) {
+            if(array["spoon"] > array["knife"]) {
+                console.log("Spoon case")
+                return "spoon";
+            } else {
+                console.log("Knife case")
+                return "knife"
+            }
+        } else {
+            if(array["fork"] > array["knife"]) {
+                console.log("Fork case")
+                return "fork"
+            } else {
+                console.log("Knife case")
+                return "knife";
+            }
+        }
+    }
+    return -1;
+}
+
+function rename(oldFileName, newFileClass, path) {
+    console.log("this is where it happens")
+    const random = Math.floor(Math.random() * 100000);
+    const extension = ".jpg"
+    const newFilePath = path + newFileClass + random + extension
+
+    console.log(path + fileName + " " + rename);
+    fs.rename(path + oldFileName, newFilePath, () => {
+        console.log("******************************")
+        console.log("File " + fileName + "changed to " + newFilePath)
+        console.log("******************************")
+    })
+    console.log("this is where it ens")   
 }
