@@ -83,9 +83,11 @@ function predict(fileName) {
         var object;
         const pythonProcess = childProcess.spawn('python', ["./scripts/label_image.py", arg1, arg2, arg3]);
         console.log("Starting prediction");
+        console.log(fileName);
         pythonProcess.stdout.on('data', (data) => {
             parseArray(data.toString())
                 .then((result) => {
+                    console.log(fileName);
                     const classification = highestItem(result);
                     rename(fileName, classification, "./images/");
                     resolve(result);
@@ -202,7 +204,7 @@ function rename(oldFileName, newFileClass, path) {
     const newFilePath = path + newFileClass + random + extension
     fs.rename(path + oldFileName, newFilePath, () => {
         console.log("******************************")
-        console.log("File " + fileName + "changed to " + newFilePath)
+        console.log("File " + oldFileName + "changed to " + newFilePath)
         console.log("******************************")
     })
     console.log("this is where it ens")   
