@@ -221,6 +221,18 @@ function routeImageFiles() {
 
     const files = fs.readdirSync(originPath);
     for (var i in files) {
-        console.log(files[i]);
+        if (path.extname(files[i]) == ".jpg") {
+            if (files[i].includes("spoon")) {
+                console.log("Spoon: " + files[i])
+            }
+
+            if (files[i].includes("fork")) {
+                console.log("Fork: " + files[i])
+            }
+
+            if (files[i].includes("knife")) {
+                console.log("Knife: " + files[i])
+            }
+        }
     }
 }
