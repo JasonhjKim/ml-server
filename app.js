@@ -224,14 +224,38 @@ function routeImageFiles() {
     for (var i in files) {
         if (path.extname(files[i]) == ".jpg") {
             if (files[i].includes("spoon")) {
+                fs.rename(originPath + files[i], spoonPath + files[i], (err) => {
+                    if(err) {
+                        return err;
+                    } else {
+                        console.log(spoonPath + files[i] + " saved successfully");
+                    }
+
+                })
                 console.log("Spoon: " + files[i])
             }
 
             if (files[i].includes("fork")) {
+                fs.rename(originPath + files[i], forkPath + files[i], (err) => {
+                    if(err) {
+                        return err;
+                    } else {
+                        console.log(forkPath + files[i] + " saved successfully");
+                    }
+
+                })
                 console.log("Fork: " + files[i])
             }
 
             if (files[i].includes("knife")) {
+                fs.rename(originPath + files[i], knifePath + files[i], (err) => {
+                    if(err) {
+                        return err;
+                    } else {
+                        console.log(knifePath + files[i] + " saved successfully");
+                    }
+
+                })
                 console.log("Knife: " + files[i])
             }
         }
