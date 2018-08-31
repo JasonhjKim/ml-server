@@ -229,6 +229,13 @@ function routeImageFiles() {
                         return err;
                     } else {
                         console.log(spoonPath + files[i] + " saved successfully");
+                        fs.unlink(originPath + files[i], (err) => {
+                            if (err) {
+                                return err;
+                            } else {
+                                console.log("Unlinked successful")
+                            }
+                        })
                     }
 
                 })
@@ -241,6 +248,13 @@ function routeImageFiles() {
                         return err;
                     } else {
                         console.log(forkPath + files[i] + " saved successfully");
+                        fs.unlink(originPath + files[i], (err) => {
+                            if (err) {
+                                return err;
+                            } else {
+                                console.log("Unlinked successful")
+                            }
+                        })
                     }
 
                 })
@@ -253,6 +267,13 @@ function routeImageFiles() {
                         return err;
                     } else {
                         console.log(knifePath + files[i] + " saved successfully");
+                        fs.unlink(originPath + files[i], (err) => {
+                            if (err) {
+                                return err;
+                            } else {
+                                console.log("Unlinked successful")
+                            }
+                        })
                     }
 
                 })
