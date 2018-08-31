@@ -198,14 +198,12 @@ function highestItem(array) {
 }
 
 function rename(oldFileName, newFileClass, path) {
-    console.log("this is where it happens")
     const random = Math.floor(Math.random() * 100000);
     const extension = ".jpg"
     const newFilePath = path + newFileClass + random + extension
     fs.rename(path + oldFileName, newFilePath, () => {
         console.log("******************************")
-        console.log("File " + oldFileName + "changed to " + newFilePath)
+        console.log("File " + oldFileName + " changed to " + newFilePath)
         console.log("******************************")
     })
-    console.log("this is where it ens")   
 }
