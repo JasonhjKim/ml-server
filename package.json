@@ -6,8 +6,10 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "child-process": "^1.0.2",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "mongoose": "^5.2.12"
   },
   "devDependencies": {},
   "scripts": {

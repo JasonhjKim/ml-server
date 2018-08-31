@@ -2,19 +2,25 @@ const express = require('express'),
       app = express(),
       childProcess = require('child_process'),
       fs = require('fs');
-      bodyParser = require('body-parser');
+      bodyParser = require('body-parser'),
+      cors = require('cors'),
+      mongoose = require('mongoose');
 
+const Prediction = require('./Prediction');
 
 app.use(bodyParser.json({ limit: '50mb', extended: true }))
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true }));
+app.use(cors());
 
 app.get('/', (req, res) => {
-    // console.log(pythonProcess);
-    // console.log("yo");
-    // pythonProcess.stdout.on('data', (data) => {
-    //     console.log(data.toString());
-    // });
-    res.send('Hey..');
+    Prediction.find({}, (err, predict) => {
+        if(err) return err;
+        if(predict) {
+            return res.json(predict)
+        } else {
+            return res.status(422).send({ error: 'No prediction found' })
+        }
+    })
 });
 
 app.post("/images", (req, res) => {
@@ -29,7 +35,18 @@ app.post("/images", (req, res) => {
                 .then((fileName) => {
                     predict(fileName)
                         .then((result) => {
-                            console.log(result);
+                            console.log("This is the result: " + result);
+			    console.log(result.fork)
+			    console.log(image);
+			    const newPrediction = new Prediction({
+			        fork: result.fork,
+                    knife: result.knife,
+                    spoon: result.spoon,
+                    img: image
+   			    })
+			    newPrediction.save(function(err){
+				if(err) return err;
+			    })
                             var json = JSON.parse(JSON.stringify(result));
                             res.json(json);
                         })
@@ -155,7 +172,7 @@ function parseArray(dirtyData) {
 function highestItem(array) {
     if(array.length != 0) {
         const max = Math.max(array["spoon"], array["fork"], array["knife"]);
-        console.log(array["spoon"] + " " + array["fork"])
+	console.log(array["spoon"] + " " + array["fork"])
         console.log(array["spoon"] < array["fork"])
         if (array["spoon"] > array["fork"]) {
             if(array["spoon"] > array["knife"]) {
