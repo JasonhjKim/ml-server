@@ -220,7 +220,7 @@ function routeImageFiles() {
     const spoonPath = "./train_images/spoon/"
 
     const files = fs.readdirSync(originPath);
-    for (var file in files) {
-        console.log(file);
+    for (var i in files) {
+        console.log(files[i]);
     }
 }
