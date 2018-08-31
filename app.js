@@ -45,11 +45,11 @@ app.post("/images", (req, res) => {
                     img: image
    			    })
 			    newPrediction.save(function(err){
-				if(err) return err;
-			    })
-                            var json = JSON.parse(JSON.stringify(result));
-                            res.json(json);
-                        })
+				    if(err) return err;
+			        })
+                    var json = JSON.parse(JSON.stringify(result));
+                    res.json(json);
+                    })
                 })
         })
     // const decodedImage = base64Decode(image);
@@ -77,11 +77,11 @@ function base64Decode(base64) {
 
 function predict(fileName) {
     return new Promise((resolve, reject) => {
-        const arg1 = "--graph=./ml_model/tf_files_2/retrained_graph.pb",
+        const arg1 = "--graph=./models/retrained_graph.pb",
               arg2 = "--image=./images/" + fileName, 
-              arg3 = "--label=./ml_model/tf_files_2/retrained_labels.txt";
+              arg3 = "--label=./models/retrained_labels.txt";
         var object;
-        const pythonProcess = childProcess.spawn('python', ["./ml_model/scripts/label_image.py", arg1, arg2, arg3]);
+        const pythonProcess = childProcess.spawn('python', ["./scripts/label_image.py", arg1, arg2, arg3]);
         console.log("Starting prediction");
         pythonProcess.stdout.on('data', (data) => {
             parseArray(data.toString())
@@ -106,7 +106,7 @@ function train() {
               arg7 = "--output_labels=tf_files_2/retrained_labels.txt",
               arg8 = "--architecture='mobilenet_0.50_224'"
               arg9 = "--image_dir=tf_files_2/images/"
-        const pythonProcess = childProcess.spawn('pythong', [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]);
+        const pythonProcess = childProcess.spawn('python', [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]);
         python 
     })
 }
