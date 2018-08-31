@@ -219,7 +219,7 @@ function routeImageFiles() {
     const knifePath = "./train_images/knife/"
     const spoonPath = "./train_images/spoon/"
 
-    fs.readdir(originPath).forEach(file => {
+    fs.readdir(originPath).foreach(file => {
         console.log(file);
     })
 }
