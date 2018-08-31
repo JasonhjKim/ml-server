@@ -282,3 +282,25 @@ function routeImageFiles() {
         }
     }
 }
+
+function removeTrainedImages() {
+    const forkPath = "./train_images/fork/"
+    const knifePath = "./train_images/knife/"
+    const spoonPath = "./train_images/spoon/"
+    const paths = ["./train_images/fork/", "./train_images/knife/", "./train_images/spoon/"];
+
+    for(let i in paths) {
+        fs.readdir(paths[i], (err, files) => {
+            if (err) return err;
+            for(let file of files) {
+                fs.unlink(path.join(paths[i], file), (err) => {
+                    if (err) {
+                        return err;
+                    } else {
+                        console.log("Unlinked file " + file);
+                    }
+                })
+            }
+        })
+    }
+}
