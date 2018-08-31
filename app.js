@@ -60,7 +60,8 @@ app.post("/images", (req, res) => {
 })
 
 app.get("/reroute", (req, res) => {
-    routeImageFiles();
+    // routeImageFiles();
+    removeTrainedImages();
 })
 
 app.listen(3000, () => {
