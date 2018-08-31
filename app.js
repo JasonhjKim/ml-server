@@ -221,7 +221,7 @@ function routeImageFiles() {
 
     const files = fs.readdirSync(originPath);
     for (var i in files) {
-        if (path.extname(files[i]) == ".jpg") {
+        if (fs.extname(files[i]) == ".jpg") {
             if (files[i].includes("spoon")) {
                 console.log("Spoon: " + files[i])
             }
