@@ -144,7 +144,6 @@ function parseArray(dirtyData) {
                 returnObject[indexString] = percentageString.substring(equalIndex + 1, endBracketIndex).toString();
             }
         }
-        console.log(fileReName)
         resolve(returnObject);
     })
 }
@@ -180,8 +179,6 @@ function rename(oldFileName, newFileClass, path) {
     const random = Math.floor(Math.random() * 100000);
     const extension = ".jpg"
     const newFilePath = path + newFileClass + random + extension
-
-    console.log(path + fileName + " " + rename);
     fs.rename(path + oldFileName, newFilePath, () => {
         console.log("******************************")
         console.log("File " + fileName + "changed to " + newFilePath)
