@@ -45,6 +45,10 @@ app.listen(3000, () => {
     console.log("Server started.. 3000");
 })
 
+mongoose.connect('mongodb://jason:khj007@ds141185.mlab.com:41185/predictions', {useNewUrlParser: true}, () => {
+    console.log("Database running on... " + 41185);
+})
+
 function base64Decode(base64) {
     return new Promise((resolve, reject) => {
         const phase1 = base64.replace(/^data:image\/\w+;base64,/, "");
